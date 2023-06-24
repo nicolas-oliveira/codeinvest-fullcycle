@@ -5,6 +5,8 @@ services:
     build: .
     ports:
       - 3000:3000
+      - 5555:5555
+      - 27017:27017
     volumes:
       - .:/home/node/app
   db:
@@ -16,7 +18,7 @@ services:
       MONGODB_REPLICA_SET_MODE: primary
       MONGODB_REPLICA_SET_KEY: 123456
       MONGODB_DATABASE: nest
-      
+
 volumes:
   mongodb_data:
     driver: local

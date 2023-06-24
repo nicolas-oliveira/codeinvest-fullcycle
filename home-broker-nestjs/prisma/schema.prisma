@@ -6,6 +6,36 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
+}
+
+model Asset {
+  id           String        @id @map("_id")
+  symbol       String
+  price        Float
+  create_at    DateTime      @default(now())
+  updated_at   DateTime      @updatedAt
+  WalletAssets WalletAsset[]
+}
+
+model Wallet {
+  id           String        @id @map("_id")
+  create_at    DateTime      @default(now())
+  updated_at   DateTime      @updatedAt
+  WalletAssets WalletAsset[]
+}
+
+model WalletAsset {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  wallet_id  String
+  asset_id   String
+  Wallet     Wallet   @relation(fields: [wallet_id], references: [id])
+  Asset      Asset    @relation(fields: [asset_id], references: [id])
+  amount     Float
+  shares     Int      @db.Int
+  create_at  DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@unique([wallet_id, asset_id])
 }
