@@ -1,0 +1,68 @@
+### Endpoint raiz de teste
+GET http://localhost:3000
+
+### Endpoint que cria novas ações
+POST http://localhost:3000/assets
+Content-Type: application/json
+
+{
+	"id": "asset2",
+	"symbol": "A1",
+	"price": 100
+}
+
+### Endpoint que lista todas as ações
+GET http://localhost:3000/assets
+
+
+### Endpoint que lista todas as carteiras
+GET http://localhost:3000/wallets
+
+### Endpoint que cria novas carteiras
+POST http://localhost:3000/wallets
+Content-Type: application/json
+
+{
+	"id": "wallet2"
+}
+
+### Endpoint que lista as ações que estão dentro da carteira correspondente
+GET http://localhost:3000/wallets/wallet1/assets
+
+### Endpoint que adiciona novas ações dentro da carteira
+POST http://localhost:3000/wallets/wallet2/assets
+Content-Type: application/json
+
+{
+	"asset_id": "asset2",
+	"shares": 10
+}
+
+### Endpoint que cria uma nova ordem de compra
+POST http://localhost:3000/orders
+Content-Type: application/json
+
+{
+	"wallet_id": "wallet1",
+	"asset_id": "asset2",
+	"shares": 5,
+	"price": 100,
+	"type": "BUY"
+}
+
+###
+GET http://localhost:3000/wallets/wallet1/orders
+
+
+###
+POST http://localhost:3000/wallets/wallet1/orders/execute
+Content-Type: application/json
+
+{
+	"order_id": "649af828c9eea772d6f9a4b6",
+	"status": "OPEN",
+	"related_investor_id": "XXXX",
+	"broker_transaction_id": "XXXX",
+	"negotiated_shares": 5,
+	"price": 10
+}
